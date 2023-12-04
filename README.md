@@ -85,10 +85,7 @@ This line stores the accumulated total volume for the previous ticker symbol in 
 
 "If Difference > 0 Then" checks if the "Difference" (which represents the change in stock prices) is greater than zero. If "Difference" is positive (indicating a price increase), it sets the cell's colour in column "K" of the current row minus one (Summary_row - 1) to green (ColorIndex = 4). "ElseIf Difference < 0 Then" If the Difference is less than zero (indicating a price decrease), it sets the cell's colour in column "K" of the current row minus one (Summary_row - 1) to red (ColorIndex = 3).
 Else: If the Difference is exactly zero,
-It sets the cell's color in column K of the current row minus one (Summary_row - 1) to no color (ColorIndex = 0). This might represent a neutral or no change scenario.
-Cell Range Selection:
-
-ws.Range("K" & Summary_row - 1): Selects the cell in column K (presumably the "Percentage_Change" column) of the current row minus one (Summary_row - 1). It seems to apply the color to the cell representing the current stock ticker's percentage change.
+It sets the cell's color in column K of the current row minus one (Summary_row - 1) to no color (ColorIndex = 0). This might represent a neutral or no change scenario. ws.Range("K" & Summary_row - 1): Selects the cell in column K (presumably the "Percentage_Change" column) of the current row minus one (Summary_row - 1). It seems to apply the color to the cell representing the current stock ticker's percentage change.
 Color Assignment:
 
 Based on the condition met (positive difference, negative difference, or zero difference), it assigns a color to the cell's interior using the ColorIndex property.
