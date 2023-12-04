@@ -56,13 +56,14 @@
        
             Ticker = "" ' Reset Ticker to an empty string
 
-'For the next lines of code will find the difference between the opening and closing price of the stock market and 
+'For the next lines of code will find the difference between the opening and closing value of the stock market and then store the values as "Difference". The closing value of the ticker is found by "ws.Cells(i, 6).Value" by each ticker. A similar concept is used to find the value of the opening price of the corresponding ticker, the line of code to find the opening is "ws.Cells(newvariable, 3).Value". After the values of the opening and closing price are found, a calculation is made to find the difference and store that value in "Difference". Lastly, the value of the difference is then output in column "K" after calculating the opening and closing price of the stock market.
             
             
             ' Finding the difference in opening and closing price
             Difference = ws.Cells(i, 6).Value - ws.Cells(newvariable, 3).Value
             ws.Range("K" & Summary_row).Value = Difference
             
+'The next set of lines of code is formatting the difference into "PercentageChange" and separating the values by "Summary_row". "If Difference <> 0 Then" checks if the Difference variable, which holds the difference between opening and closing prices, is not equal to zero after identifying the If the difference is not zero, it means there's a change in price for the specific ticker. When there's a non-zero difference, the line of code will calculate the percentage change by dividing the "Difference" by the opening price "(ws.Cells(newvariable, 3).Value)". And the "ws.Cells(newvariable, 3).Value" refers to the opening price of the stock.
             
             If Difference <> 0 Then
             PercentageChange = Difference / ws.Cells(newvariable, 3).Value
@@ -72,7 +73,9 @@
                     ws.Cells(Summary_row, 12).Value = "%0.0"
                     
                 End If
-            
+
+'
+
                 ' Store TotalVol for the previous ticker
                 ws.Cells(Summary_row, 13).Value = TotalVol
                 ' Reset TotalVol for the new ticker
