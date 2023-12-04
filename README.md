@@ -63,7 +63,7 @@
             Difference = ws.Cells(i, 6).Value - ws.Cells(newvariable, 3).Value
             ws.Range("K" & Summary_row).Value = Difference
             
-'The next set of lines of code is formatting the difference into "PercentageChange" and separating the values by "Summary_row". "If Difference <> 0 Then" checks if the Difference variable, which holds the difference between opening and closing prices, is not equal to zero after identifying the If the difference is not zero, it means there's a change in price for the specific ticker. When there's a non-zero difference, the line of code will calculate the percentage change by dividing the "Difference" by the opening price "(ws.Cells(newvariable, 3).Value)". And the "ws.Cells(newvariable, 3).Value" refers to the opening price of the stock.
+'The next set of lines of code is formatting the difference into "PercentageChange" and separating the values by "Summary_row". "If Difference <> 0 Then" checks if the Difference variable, which holds the difference between opening and closing prices, is not equal to zero after identifying the If the difference is not zero, it means there's a change in price for the specific ticker. When there's a non-zero difference, the line of code will calculate the percentage change by dividing the "Difference" by the opening price "(ws.Cells(newvariable, 3).Value)". And the "ws.Cells(newvariable, 3).Value" refers to the opening price of the stock. If there's a non-zero difference, the calculated PercentageChange is then formatted as a percentage using the "FormatPercent()" function. The formatted percentage value is then assigned to the cell in the current row (Summary_row) and the 12th column (ws.Cells(Summary_row, 12).Value), is the "Percentage_Change" column.
             
             If Difference <> 0 Then
             PercentageChange = Difference / ws.Cells(newvariable, 3).Value
@@ -74,7 +74,7 @@
                     
                 End If
 
-'
+This line stores the accumulated total volume for the previous ticker symbol in the 13th column (ws.Cells(Summary_row, 13).Value), presumably the "Total_Stock_Volume" column. After storing the total volume for the previous ticker, it resets the TotalVol variable to zero. This prepares it to start accumulating the total volume for the next ticker symbol. "Summary_row = Summary_row + 1" increments the Summary_row variable by one, moving to the next row where the data for the next ticker symbol will be stored. It updates the "newvariable" index to the next row's index, indicating the beginning of a new ticker symbol's data in the dataset. This is used for comparing ticker changes in subsequent iterations.
 
                 ' Store TotalVol for the previous ticker
                 ws.Cells(Summary_row, 13).Value = TotalVol
@@ -82,6 +82,18 @@
                 TotalVol = 0
             Summary_row = Summary_row + 1
             newvariable = i + 1
+
+"If Difference > 0 Then" checks if the "Difference" (which represents the change in stock prices) is greater than zero. If "Difference" is positive (indicating a price increase), it sets the cell's colour in column "K" of the current row minus one (Summary_row - 1) to green (ColorIndex = 4). "ElseIf Difference < 0 Then" If the Difference is less than zero (indicating a price decrease), it sets the cell's colour in column "K" of the current row minus one (Summary_row - 1) to red (ColorIndex = 3).
+Else: If the Difference is exactly zero,
+It sets the cell's color in column K of the current row minus one (Summary_row - 1) to no color (ColorIndex = 0). This might represent a neutral or no change scenario.
+Cell Range Selection:
+
+ws.Range("K" & Summary_row - 1): Selects the cell in column K (presumably the "Percentage_Change" column) of the current row minus one (Summary_row - 1). It seems to apply the color to the cell representing the current stock ticker's percentage change.
+Color Assignment:
+
+Based on the condition met (positive difference, negative difference, or zero difference), it assigns a color to the cell's interior using the ColorIndex property.
+Green is typically associated with positive changes, red with negative changes, and no color when there's no change or no data.
+            
             ' Color change logic
                 If Difference > 0 Then
                     ws.Range("K" & Summary_row - 1).Interior.ColorIndex = 4 ' Green
